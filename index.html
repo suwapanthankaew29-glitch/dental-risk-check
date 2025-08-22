@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แบบประเมินความเสี่ยงโรคฟันผุ</title>
+  <style>
+    body { font-family: Tahoma, sans-serif; margin: 30px; background: #f5f5f5; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #2c3e50; }
+    .question { margin: 15px 0; }
+    button { padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #2980b9; }
+    #result { margin-top: 20px; font-weight: bold; font-size: 18px; text-align: center; }
+    .safe { color: green; }
+    .risk { color: red; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>แบบประเมินความเสี่ยงโรคฟันผุ</h2>
+    <form id="riskForm">
+      <div class="question">1. รับประทานขนมหวาน/น้ำอัดลมบ่อย? 
+        <input type="checkbox" name="q1">
+      </div>
+      <div class="question">2. แปรงฟันน้อยกว่า 2 ครั้งต่อวัน? 
+        <input type="checkbox" name="q2">
+      </div>
+      <div class="question">3. ไม่เคยใช้ไหมขัดฟันหรือใช้น้อยมาก? 
+        <input type="checkbox" name="q3">
+      </div>
+      <div class="question">4. เคยมีฟันผุใน 1 ปีที่ผ่านมา? 
+        <input type="checkbox" name="q4">
+      </div>
+      <div class="question">5. มีเศษอาหารติดฟันบ่อย? 
+        <input type="checkbox" name="q5">
+      </div>
+      <div class="question">6. มีอาการเสียวฟันหรือปวดฟัน? 
+        <input type="checkbox" name="q6">
+      </div>
+      <button type="button" onclick="calculateRisk()">ประเมินผล</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateRisk() {
+      const form = document.getElementById("riskForm");
+      let score = 0;
+
+      for (let i = 1; i <= 6; i++) {
+        if (form["q" + i].checked) score++;
+      }
+
+      let result = document.getElementById("result");
+      if (score <= 1) {
+        result.innerHTML = "<p class='safe'>✅ ไม่เสี่ยงต่อโรคฟันผุ</p>" +
+          "<p>คำแนะนำ: รักษาพฤติกรรมที่ดี แปรงฟันวันละ 2 ครั้ง ใช้ไหมขัดฟัน และตรวจสุขภาพฟันทุก 6 เดือน</p>";
+      } else {
+        result.innerHTML = "<p class='risk'>⚠️ เสี่ยงต่อโรคฟันผุ</p>" +
+          "<p>คำแนะนำ: ลดการทานอาหารหวาน แปรงฟันด้วยยาสีฟันผสมฟลูออไรด์ ใช้ไหมขัดฟัน และพบทันตแพทย์</p>";
+      }
+    }
+  </script>
+</body>
+</html>
